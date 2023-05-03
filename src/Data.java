@@ -149,4 +149,49 @@ public class Data {
 		System.out.println(trySet);
 	}
 	
+	Tuple getItemSet(int index) {
+		Tuple tuple=new Tuple(explanatorySet.length);
+		for(int i=0;i<explanatorySet.length;i++)
+			tuple.add(new DiscreteItem(explanatorySet[i], 
+					(String)data[index][i]),i);
+		return tuple;
+	}
+	
+	int[] sampling(int k) {
+		int centroidIndexes[]=new int[k];
+		//choose k random different centroids in data.
+		Random rand=new Random();
+		rand.setSeed(System.currentTimeMillis());
+		for (int i=0;i<k;i++){
+			boolean found=false;
+			int c;
+			do
+			{
+				found=false;
+				c=rand.nextInt(getNumberOfExamples());
+				// verify that centroid[c] is not equal to a centroide
+				//already stored in CentroidIndexes
+				for(int j=0;j<i;j++)
+					if(compare(centroidIndexes[j],c)){
+						found=true;
+						break;
+					}
+				}
+			while(found);
+			centroidIndexes[i]=c;
+			}
+		return centroidIndexes;
+	}
+	
+	private boolean compare(int i, int j) {
+		//da fare
+	}
+	
+	Object computePrototype(ArraySet idList, Attribute attribute) {
+		//da fare
+	}
+	
+	String computePrototype(ArraySet idList, DiscreteAttribute attribute) {
+		//da fare
+	}
 }
