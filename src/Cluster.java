@@ -1,16 +1,12 @@
 
 public class Cluster {
 	private Tuple centroid;
-
 	private ArraySet clusteredData; 
 	
-	/*Cluster(){
-		
-	}*/
-
+	
 	Cluster(Tuple centroid){
-		this.centroid=centroid;
-		clusteredData=new ArraySet();
+		this.centroid = centroid;
+		clusteredData = new ArraySet();
 		
 	}
 		
@@ -19,7 +15,7 @@ public class Cluster {
 	}
 	
 	void computeCentroid(Data data){
-		for(int i=0;i<centroid.getLength();i++){
+		for(int i = 0;i < centroid.getLength(); i++){
 			centroid.get(i).update(data,clusteredData);
 			
 		}
@@ -31,7 +27,7 @@ public class Cluster {
 		
 	}
 	
-	//verifica se una transazione è clusterizzata nell'array corrente
+	//verifica se una transazione ï¿½ clusterizzata nell'array corrente
 	boolean contain(int id){
 		return clusteredData.get(id);
 	}
@@ -56,18 +52,18 @@ public class Cluster {
 	
 	public String toString(Data data){
 		String str="Centroid=(";
-		for(int i=0;i<centroid.getLength();i++)
-			str+=centroid.get(i)+ " ";
-		str+=")\nExamples:\n";
+		for(int i = 0; i < centroid.getLength(); i++)
+			str += centroid.get(i) + " ";
+		str += ")\nExamples:\n";
 		int array[]=clusteredData.toArray();
-		for(int i=0;i<array.length;i++){
-			str+="[";
-			for(int j=0;j<data.getNumberOfExplanatoryAttributes();j++)
-				str+=data.getValue(array[i], j)+" ";
-			str+="] dist="+getCentroid().getDistance(data.getItemSet(array[i]))+"\n";
+		for(int i = 0; i < array.length; i++){
+			str += "[";
+			for(int j = 0; j < data.getNumberOfExplanatoryAttributes(); j++)
+				str += data.getAttributeValue(array[i], j) + " ";
+			str += "] dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
 			
 		}
-		str+="\nAvgDistance="+getCentroid().avgDistance(data, array);
+		str += "\nAvgDistance=" + getCentroid().avgDistance(data, array);
 		return str;
 		
 	}

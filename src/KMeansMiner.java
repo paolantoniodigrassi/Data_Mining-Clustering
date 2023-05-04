@@ -1,9 +1,9 @@
 
 public class KMeansMiner {
-	ClusterSet C;
+	private ClusterSet C;
 	
 	KMeansMiner(int k){
-	//	this.C = new [k];
+		C = new ClusterSet(k);
 	}
 	
 	ClusterSet getC() {
@@ -14,20 +14,20 @@ public class KMeansMiner {
 		int numberOfIterations=0;
 		//STEP 1
 		C.initializeCentroids(data);
-		boolean changedCluster=false;
+		boolean changedCluster = false;
 		do{
 			numberOfIterations++;
 			//STEP 2
-			changedCluster=false;
-			for(int i=0;i<data.getNumberOfExamples();i++){
+			changedCluster = false;
+			for(int i = 0; i < data.getNumberOfExamples(); i++){
 				Cluster nearestCluster = C.nearestCluster( 
 						data.getItemSet(i));
-				Cluster oldCluster=C.currentCluster(i);
-				boolean currentChange=nearestCluster.addData(i);
+				Cluster oldCluster = C.currentCluster(i);
+				boolean currentChange = nearestCluster.addData(i);
 				if(currentChange)
-					changedCluster=true;
+					changedCluster = true;
 				//rimuovo la tupla dal vecchio cluster
-				if(currentChange && oldCluster!=null)
+				if(currentChange && oldCluster != null)
 					//il nodo va rimosso dal suo vecchio cluster
 					oldCluster.removeTuple(i);
 			}

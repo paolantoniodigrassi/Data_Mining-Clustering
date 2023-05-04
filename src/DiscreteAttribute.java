@@ -17,7 +17,7 @@ public class DiscreteAttribute extends Attribute{
 	int frequency(Data data, ArraySet idList, String v) {
 		int freq = 0;
 		int f[] = idList.toArray();
-		for (int i = 0; i< f.length; i++)
+		for (int i = 0; i < f.length; i++)
 			if(data.getAttributeValue(f[i], this.getIndex()).equals(v))
 				freq++;
 		return freq;

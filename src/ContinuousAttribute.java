@@ -9,7 +9,7 @@ public class ContinuousAttribute extends Attribute{
 	}
 	
 	double getScaledValue(double v) {
-		return (v-min)/(max-min);
+		return (v - min) / (max - min);
 	}
 	
 }

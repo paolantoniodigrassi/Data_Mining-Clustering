@@ -12,15 +12,15 @@ public abstract class Item {
 		return attribute;
 	}
 	
-	Object getValue() {
+	public Object getValue() {
 		return value;
 	}
 	
 	public String toString() {
-		return value.toString();
+		return (String)value;
 	}
 	
-	abstract double distance (Object a);
+	abstract double distance (Object a); //implementazione diversa per item discreto e item continuo
 	
 	void update(Data data, ArraySet clusteredData) {
 		value = data.computePrototype(clusteredData, attribute);
