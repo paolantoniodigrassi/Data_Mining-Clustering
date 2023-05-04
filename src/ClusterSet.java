@@ -55,7 +55,7 @@ public class ClusterSet {
 	
 	public String toString() {
 		String str ="";
-		for(i = 0; i < C.length; i++) {
+		for(int i = 0; i < C.length; i++) {
 			str += i+ ": " + C[i] + "\n";	
 			}
 		return str;
