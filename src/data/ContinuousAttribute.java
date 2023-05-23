@@ -1,3 +1,4 @@
+package data;
 public class ContinuousAttribute extends Attribute{
 	private double max;
 	private double min; //rappresentano gli estremi dell'intervallo di valori (dominio) che l'attributo può realmente assumere

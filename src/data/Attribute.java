@@ -1,3 +1,4 @@
+package data;
 public abstract class Attribute {
 	private String name; //nome simbolico dell'attributo
 	private int index; //identificativo numerico dell'attributo

@@ -1,3 +1,6 @@
+package data;
+import utility.ArraySet;
+
 public class DiscreteAttribute extends Attribute{
 	private String values[]; //array di oggetti String, uno per ciascun valore del dominio discreto. I valori del dominio sono memorizzati in values seguendo un ordine lessigografico
 	
