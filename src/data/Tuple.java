@@ -1,4 +1,4 @@
-
+package data;
 public class Tuple {
 	private Item tuple[];
 	
@@ -6,11 +6,11 @@ public class Tuple {
 		tuple = new Item[size];
 	}
 	
-	int getLength() {
+	public int getLength() {
 		return tuple.length;
 	}
 	
-	Item get(int i) {
+	public Item get(int i) {
 		return tuple[i];
 	}
 	
@@ -18,7 +18,7 @@ public class Tuple {
 		tuple[i] = c;
 	}
 	
-	double getDistance(Tuple t) {
+	public double getDistance(Tuple t) {
 		double distance = 0;
 		for(int i = 0; i < getLength(); i++) {
 			distance += tuple[i].distance(t.get(i).getValue());
@@ -26,7 +26,7 @@ public class Tuple {
 		return distance;
 	}
 	
-	double avgDistance(Data data, int clusteredData[]) {
+	public double avgDistance(Data data, int clusteredData[]) {
 		double p = 0.0, sumD = 0.0;
 		for(int i = 0; i < clusteredData.length; i++){
 			double d = getDistance(data.getItemSet(clusteredData[i]));

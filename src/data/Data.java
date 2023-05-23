@@ -1,15 +1,19 @@
+package data;
 import java.util.*;
+
+import utility.ArraySet;
 
 public class Data {
 	private Object data[][]; //una matrice nXm di tipo Object dove ogni riga modella una transizione
 	private int numberOfExamples; //cardinalità dell'insieme di transazioni (numero di righe in data)
 	private Attribute attributeSet[]; //un vettore degli attributi di ciascuna tupla (schema della tabella di dati)
-	
-	Data(){
+	private int distinctTuples; //numero di transazioni disstinte
+
+	public Data(){
 		//inizializzazione matrice data con transizioni di esempio
 		data = new Object[14][5];
 		
-		/*data[0][0] = new String ("Sunny");
+		data[0][0] = new String ("Sunny");
 		data[1][0] =new String ("Sunny");
 		data[2][0] =new String ("Overcast");
 		data[3][0] =new String ("Rain");
@@ -82,10 +86,10 @@ public class Data {
         data[10][4] = new String ("Yes");
         data[11][4] = new String ("Yes");
         data[12][4] = new String ("Yes");
-        data[13][4] = new String ("No");*/
+        data[13][4] = new String ("No");
 
 		
-		data[0][0]=new String ("Sunny");
+		/*data[0][0]=new String ("Sunny");
 		data[1][0]=new String ("Sunny");
 		data[2][0]=new String ("Sunny");
 		data[3][0]=new String ("Rain");
@@ -158,7 +162,7 @@ public class Data {
 		data[10][4]=new String ("Yes");
 		data[11][4]=new String ("Yes");
 		data[12][4]=new String ("Yes");
-		data[13][4]=new String ("Yes");
+		data[13][4]=new String ("Yes");*/
         
 		//inizializzazione attributeSet creando cinque oggetti di tipo DiscreteAttribute
 		attributeSet = new Attribute[5];
@@ -192,25 +196,28 @@ public class Data {
 		
 		//inizializzazione di numberOfExamples
 		numberOfExamples = 14;	
+
+		//inizializzazione numero tuple distinte
+		distinctTuples = countDistinctTuples();
 	}
 	
-	int getNumberOfExamples() {
+	public int getNumberOfExamples() {
 		return numberOfExamples;
 	}
 	
-	int getNumberOfExplanatoryAttributes() {
+	public int getNumberOfExplanatoryAttributes() {
 		return attributeSet.length;
 	}
 	
-	Attribute[] getAttributeSchema() {
+	public Attribute[] getAttributeSchema() {
 		return attributeSet;
 	}
 	
-	Attribute getAttribute(int index) {
+	public Attribute getAttribute(int index) {
 		return attributeSet[index];
 	}
 	
-	Object getAttributeValue(int exampleIndex, int attributeIndex) {
+	public Object getAttributeValue(int exampleIndex, int attributeIndex) {
 		return data[exampleIndex][attributeIndex];
 	}
 	
@@ -233,14 +240,17 @@ public class Data {
 		System.out.println(trySet);
 	}
 	
-	Tuple getItemSet(int index) {
+	public Tuple getItemSet(int index) {
 		Tuple tuple=new Tuple(attributeSet.length);
-		for(int i = 0; i < attributeSet.length; i++)
+	for(int i = 0; i < attributeSet.length; i++)
 			tuple.add(new DiscreteItem((DiscreteAttribute)attributeSet[i], (String)data[index][i]),i);
 		return tuple;
 	}
 	
-	int[] sampling(int k) {
+	public int[] sampling(int k) throws OutOfRangeSampleSize {
+		if (k <= 0 || k > distinctTuples)
+			throw new OutOfRangeSampleSize("Inserire k compreso tra 1 e " + distinctTuples);
+
 		int centroidIndexes[] =new int[k]; //choose k random different centroids in data.
 		Random rand =new Random();
 		rand.setSeed(System.currentTimeMillis());
@@ -288,5 +298,27 @@ public class Data {
 			}
 		}
 		return computedPrototype;		
+	}
+
+	private int countDistinctTuples() {
+		int numDistinctTuples = 0;
+		int n = getNumberOfExamples();
+		boolean distinctCheck;
+
+		for(int i = 0; i < n; i++) {
+			distinctCheck = true;
+
+			for (int j = 0; j < i; j++) {
+				if(compare(i, j)) {
+					distinctCheck = false;
+					break;
+				}
+			}
+
+			if (distinctCheck) {
+				numDistinctTuples++;
+			}
+		}
+		return numDistinctTuples;
 	}
 }
